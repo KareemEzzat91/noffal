@@ -20,6 +20,9 @@ class _HomescreenState extends State<Homescreen> {
   void _showEmployeeDialog({String? title, Employee? employee}) {
     final nameController = TextEditingController(text: employee?.name ?? '');
     final emailController = TextEditingController(text: employee?.email ?? '');
+    final phoneController = TextEditingController(text: employee?.phone ?? '');
+    final passwordController = TextEditingController(text: employee?.password ?? '');
+    final salaryController = TextEditingController(text: employee != null ? employee.salary.toString() : '');
     final ageController = TextEditingController(
         text: employee != null ? employee.age.toString() : '');
 
@@ -62,6 +65,33 @@ class _HomescreenState extends State<Homescreen> {
                 ),
                 const SizedBox(height: 10),
                 TextField(
+                  controller: salaryController,
+                  decoration: const InputDecoration(
+                    labelText: 'salary',
+                    prefixIcon: Icon(Icons.monetization_on),
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                TextField(
+                  controller: passwordController,
+                  decoration: const InputDecoration(
+                    labelText: 'password',
+                    prefixIcon: Icon(Icons.password),
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                TextField(
+                  controller: phoneController,
+                  decoration: const InputDecoration(
+                    labelText: 'phone',
+                    prefixIcon: Icon(Icons.phone),
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                TextField(
                   controller: ageController,
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
@@ -82,7 +112,10 @@ class _HomescreenState extends State<Homescreen> {
                       onPressed: () {
                         final name = nameController.text.trim();
                         final email = emailController.text.trim();
+                        final phone = phoneController.text.trim();
+                        final password = passwordController.text.trim();
                         final age = int.tryParse(ageController.text.trim());
+                        final salary = int.tryParse(salaryController.text.trim());
 
                         if (name.isNotEmpty && email.isNotEmpty && age != null) {
                           if (employee == null) {
@@ -91,6 +124,9 @@ class _HomescreenState extends State<Homescreen> {
                                 name: name,
                                 email: email,
                                 age: age,
+                                salary: salary,
+                                phone: phone,
+                                password: password
                               ),
                             );
                           } else {
@@ -100,6 +136,9 @@ class _HomescreenState extends State<Homescreen> {
                                 name: name,
                                 email: email,
                                 age: age,
+                                  salary: salary,
+                                  phone: phone,
+                                  password: password
                               ),
                             );
                           }
